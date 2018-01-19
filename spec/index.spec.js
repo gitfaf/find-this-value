@@ -10,9 +10,12 @@ describe('find this value', () => {
       b: 'bb',
       c: 'cc'
     }
-    const expected = true
+    const expected = {
+      found: true,
+      where: 'a.b.'
+    }
     const findWhat = 'bb'
-    expect(ftv(obj, findWhat, equater)).to.equal(expected)
+    expect(ftv(obj, findWhat, equater)).to.deep.equal(expected)
   })
 
   it('finds that value successfully in multiple level object', () => {
@@ -34,9 +37,12 @@ describe('find this value', () => {
         }
       ]
     }
-    const expected = true
+    const expected = {
+      found: true,
+      where: 'a.b.c.d.'
+    }
     const findWhat = 'val-2'
-    expect(ftv(obj, findWhat, equater)).to.equal(expected)
+    expect(ftv(obj, findWhat, equater)).to.deep.equal(expected)
   })
 
   it('does not find given value successfully in multiple level object', () => {
@@ -58,9 +64,12 @@ describe('find this value', () => {
         }
       ]
     }
-    const expected = false
+    const expected = {
+      found: false,
+      where: undefined
+    }
     const findWhat = 'val-4'
-    expect(ftv(obj, findWhat, equater)).to.equal(expected)
+    expect(ftv(obj, findWhat, equater)).to.deep.equal(expected)
   })
 
 })
