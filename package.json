@@ -1,0 +1,27 @@
+{
+  "name": "find-this-value",
+  "version": "1.0.0",
+  "description": "Find a value in a given object with programmable matching logic - node module",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitfaf/find-this-value.git"
+  },
+  "keywords": [
+    "find a value",
+    "needle-in-a-haystack"
+  ],
+  "author": "Git Faf <git.faf@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gitfaf/find-this-value/issues"
+  },
+  "homepage": "https://github.com/gitfaf/find-this-value#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "jasmine": "^2.9.0"
+  }
+}
