@@ -12,7 +12,7 @@ describe('find this value', () => {
     }
     const expected = {
       found: true,
-      where: 'a.b.'
+      where: 'a.b'
     }
     const findWhat = 'bb'
     expect(ftv(obj, findWhat, equater)).to.deep.equal(expected)
@@ -39,7 +39,7 @@ describe('find this value', () => {
     }
     const expected = {
       found: true,
-      where: 'a.b.c.d.'
+      where: 'a.b.c.d'
     }
     const findWhat = 'val-2'
     expect(ftv(obj, findWhat, equater)).to.deep.equal(expected)
@@ -72,4 +72,22 @@ describe('find this value', () => {
     expect(ftv(obj, findWhat, equater)).to.deep.equal(expected)
   })
 
+  it('does not find given value successfully in empty object', () => {
+    const obj = {}
+    const expected = {
+      found: false,
+      where: undefined
+    }
+    const findWhat = 'val-4'
+    expect(ftv(obj, findWhat, equater)).to.deep.equal(expected)
+  })
+  it('does not find given value successfully in null or any falsey object', () => {
+    const obj = null
+    const expected = {
+      found: false,
+      where: undefined
+    }
+    const findWhat = 'val-4'
+    expect(ftv(obj, findWhat, equater)).to.deep.equal(expected)
+  })
 })
