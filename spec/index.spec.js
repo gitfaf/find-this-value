@@ -5,21 +5,21 @@ const equater = (a, b) => a === b
 describe('find this value', () => {
 
   it('finds that value successfully in single level object', () => {
-    const obj = {
+    const inputObject = {
       a: 'aa',
       b: 'bb',
       c: 'cc'
     }
     const expected = {
       found: true,
-      where: 'a.b'
+      location: 'b'
     }
-    const findWhat = 'bb'
-    expect(ftv(obj, findWhat, equater)).to.deep.equal(expected)
+    const toFind = 'bb'
+    expect(ftv(inputObject, toFind, equater)).to.deep.equal(expected)
   })
 
   it('finds that value successfully in multiple level object', () => {
-    const obj = {
+    const inputObject = {
       a: 'aa',
       b: 'bb',
       c: 'cc',
@@ -39,14 +39,14 @@ describe('find this value', () => {
     }
     const expected = {
       found: true,
-      where: 'a.b.c.d'
+      location: 'd.2.val'
     }
-    const findWhat = 'val-2'
-    expect(ftv(obj, findWhat, equater)).to.deep.equal(expected)
+    const toFind = 'val-3'
+    expect(ftv(inputObject, toFind, equater)).to.deep.equal(expected)
   })
 
   it('does not find given value successfully in multiple level object', () => {
-    const obj = {
+    const inputObject = {
       a: 'aa',
       b: 'bb',
       c: 'cc',
@@ -66,28 +66,57 @@ describe('find this value', () => {
     }
     const expected = {
       found: false,
-      where: undefined
+      location: undefined
     }
-    const findWhat = 'val-4'
-    expect(ftv(obj, findWhat, equater)).to.deep.equal(expected)
+    const toFind = 'val-4'
+    expect(ftv(inputObject, toFind, equater)).to.deep.equal(expected)
   })
 
   it('does not find given value successfully in empty object', () => {
-    const obj = {}
+    const inputObject = {}
     const expected = {
       found: false,
-      where: undefined
+      location: undefined
     }
-    const findWhat = 'val-4'
-    expect(ftv(obj, findWhat, equater)).to.deep.equal(expected)
+    const toFind = 'val-4'
+    expect(ftv(inputObject, toFind, equater)).to.deep.equal(expected)
   })
+
   it('does not find given value successfully in null or any falsey object', () => {
-    const obj = null
+    const inputObject = null
     const expected = {
       found: false,
-      where: undefined
+      location: undefined
     }
-    const findWhat = 'val-4'
-    expect(ftv(obj, findWhat, equater)).to.deep.equal(expected)
+    const toFind = 'val-4'
+    expect(ftv(inputObject, toFind, equater)).to.deep.equal(expected)
+  })
+
+  it('finds value via regex', () => {
+    const inputObject = {
+      a: 'aa',
+      b: 'bb',
+      c: 'cc',
+      d: [{
+          key: 'key-1',
+          val: 'val-1'
+        },
+        {
+          key: 'key-2',
+          val: 'val-2'
+        },
+        {
+          key: 'key-3',
+          val: 'val-3'
+        }
+      ]
+    }
+    const expected = {
+      found: true,
+      location: 'd.0.val'
+    }
+    const toFind = /v[a-z]{2}\-[0-9]/
+    const compare = (objVal, what) => what.test(objVal)
+    expect(ftv(inputObject, toFind, compare)).to.deep.equal(expected)
   })
 })
